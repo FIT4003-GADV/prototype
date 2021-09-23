@@ -2,8 +2,8 @@ import { Grid, makeStyles } from '@material-ui/core';
 import { useField } from 'formik';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import SingleFileUploadWithProgress from './FileUploadWithProgress';
-import { UploadError} from './UploadError'
+import UploadWithProgress from './UploadWithProgress';
+import UploadError from './UploadError'
 
 
 let currentId = 0;
@@ -12,7 +12,6 @@ function getNewId() {
   // we could use a fancier solution instead of a sequential ID :)
   return ++currentId;
 }
-
 
 const useStyles = makeStyles((theme) => ({
     dropzone: {
@@ -27,12 +26,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
-
-
-export function DragNDrop({ name='files' }) {
+const DragNDrop = ({ name='files' }) => {
     const [_, __, helpers] = useField(name);
     const classes = useStyles();
+    const [isHovering, setIsHovering] = useState(false);
   
     const [files, setFiles] = useState([]);
     const onDrop = useCallback((accFiles, rejFiles) => {
@@ -57,23 +54,27 @@ export function DragNDrop({ name='files' }) {
       );
     }
   
-    function onDelete(file) {
+    const onDelete = (file) => {
       setFiles((curr) => curr.filter((fw) => fw.file !== file));
     }
   
     const { getRootProps, getInputProps } = useDropzone({
       onDrop,
-      accept: ['image/*', 'video/*', '.pdf'],
+      accept: ['.svg'],
       maxSize: 300 * 1024, // 300KB
     });
   
     return (
       <React.Fragment>
-        <Grid item>
-          <div {...getRootProps({ className: classes.dropzone })}>
+        <Grid item >
+          <div
+            onMouseOver={() => setIsHovering(true)}  
+            onMouseLeave={() => setIsHovering(false)} 
+            style={{backgroundColor: isHovering && '#E8E8E8'}}
+            {...getRootProps({ className: classes.dropzone })}
+          >
             <input {...getInputProps()} />
-  
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Drag 'n' drop SVG image here, or click to select image</p>
           </div>
         </Grid>
   
@@ -86,7 +87,7 @@ export function DragNDrop({ name='files' }) {
                 onDelete={onDelete}
               />
             ) : (
-              <SingleFileUploadWithProgress
+              <UploadWithProgress
                 onDelete={onDelete}
                 onUpload={onUpload}
                 file={fileWrapper.file}
@@ -97,4 +98,6 @@ export function DragNDrop({ name='files' }) {
       </React.Fragment>
     );
   }
+
+  export default DragNDrop
   

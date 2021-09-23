@@ -2,9 +2,9 @@ import { Button, Card, CardContent, Grid } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { array, object, string } from 'yup';
-import { DragNDrop } from './DragNDrop';
+import  DragNDrop from './DragNDrop';
 
-const Home = () => {
+const UplaodImageTab = () => {
   return (
     <Card>
       <CardContent>
@@ -26,7 +26,6 @@ const Home = () => {
             <Form>
               <Grid container spacing={2} direction="column">
                 <DragNDrop name="files" />
-
                 <Grid item>
                   <Button
                     variant="contained"
@@ -38,7 +37,6 @@ const Home = () => {
                   </Button>
                 </Grid>
               </Grid>
-
               <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
             </Form>
           )}
@@ -48,4 +46,4 @@ const Home = () => {
   );
 }
 
-export default Home
+export default UplaodImageTab

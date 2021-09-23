@@ -7,7 +7,7 @@ const uploadFile = (file, onProgress) => {
     const url = 'https://api.cloudinary.com/v1_1/demo/image/upload';
     const key = 'docs_upload_example_us_preset';
   
-    return new Promise<string>((res, rej) => {
+    return new Promise((res, rej) => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url);
   
@@ -32,7 +32,7 @@ const uploadFile = (file, onProgress) => {
   }
 
 
-const SingleFileUploadWithProgress = ({file,onDelete,onUpload,}) => {
+const UploadWithProgress = ({file,onDelete,onUpload,}) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -51,4 +51,4 @@ const SingleFileUploadWithProgress = ({file,onDelete,onUpload,}) => {
   );
 }
 
-export default SingleFileUploadWithProgress
+export default UploadWithProgress

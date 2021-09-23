@@ -1,8 +1,6 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 
-
-
 const FileHeader = ({ file, onDelete }) => {
   return (
     <Grid container justify="space-between" alignItems="center">
