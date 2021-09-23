@@ -2,9 +2,7 @@ import {
   AppBar,
   Box,
   Container,
-  createStyles,
   CssBaseline,
-  makeStyles,
   Toolbar,
   Typography,
   Tabs,
@@ -13,14 +11,7 @@ import {
 import React, { useState } from 'react';
 import UploadImageTab from './components/UploadImage/UploadImageTab';
 import InsertCodeTab from './components/InsertCode/InsertCodeTab';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    title: {
-      flexGrow: 1,
-    },
-  })
-);
+import IntroSection from './components/IntroSection';
 
 const TabPanel = ({ children, value, index, ...other }) => {
   return (
@@ -49,35 +40,37 @@ const a11yProps = (index) => {
 
 const App = () =>{
   const [tab, setTab] = useState(0);
-  const classes = useStyles();
 
   return (
-    <React.Fragment>
-    <AppBar position="fixed">
-      <Toolbar variant="dense">
-        <Typography variant="h6" className={classes.title}>
-          Alt Text Generation from SVG
-        </Typography>
-      </Toolbar>
-    </AppBar>
-    <CssBaseline />
-    <Container>
-      <Box marginTop={10} sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label="basic tabs example">
-            <Tab label="Upload SVG image" {...a11yProps(0)} />
-            <Tab label="Insert XML code" {...a11yProps(1)} />
-          </Tabs>
+    <>
+      <AppBar position="fixed">
+        <Toolbar variant="dense">
+          <Typography variant="h6">
+            Alt Text Generation from SVG
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <IntroSection />
+      </Container>
+      <Container>
+        <Box marginTop={5} sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+              <Tab label="Upload SVG image" {...a11yProps(0)} />
+              <Tab label="Insert XML code" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={tab} index={0}>
+            <UploadImageTab />
+          </TabPanel>
+          <TabPanel value={tab} index={1}>
+            <InsertCodeTab />
+          </TabPanel>
         </Box>
-        <TabPanel value={tab} index={0}>
-          <UploadImageTab />
-        </TabPanel>
-        <TabPanel value={tab} index={1}>
-          <InsertCodeTab />
-        </TabPanel>
-      </Box>
-    </Container>
-</React.Fragment>
+      </Container>
+    </>
   );
 }
 
