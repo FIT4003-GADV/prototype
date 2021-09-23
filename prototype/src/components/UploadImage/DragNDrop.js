@@ -30,8 +30,8 @@ const DragNDrop = ({ name='files' }) => {
     const [_, __, helpers] = useField(name);
     const classes = useStyles();
     const [isHovering, setIsHovering] = useState(false);
-  
     const [files, setFiles] = useState([]);
+
     const onDrop = useCallback((accFiles, rejFiles) => {
       const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
       const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
@@ -43,7 +43,7 @@ const DragNDrop = ({ name='files' }) => {
       // helpers.setTouched(true);
     }, [files]);
   
-    function onUpload(file, url) {
+    const onUpload = (file, url) => {
       setFiles((curr) =>
         curr.map((fw) => {
           if (fw.file === file) {
@@ -65,7 +65,7 @@ const DragNDrop = ({ name='files' }) => {
     });
   
     return (
-      <React.Fragment>
+      <>
         <Grid item >
           <div
             onMouseOver={() => setIsHovering(true)}  
@@ -80,22 +80,22 @@ const DragNDrop = ({ name='files' }) => {
   
         {files.map((fileWrapper) => (
           <Grid item key={fileWrapper.id}>
-            {fileWrapper.errors.length ? (
+            {
+              fileWrapper.errors.length ? 
               <UploadError
                 file={fileWrapper.file}
                 errors={fileWrapper.errors}
                 onDelete={onDelete}
-              />
-            ) : (
+              /> : 
               <UploadWithProgress
                 onDelete={onDelete}
                 onUpload={onUpload}
                 file={fileWrapper.file}
               />
-            )}
+            }
           </Grid>
         ))}
-      </React.Fragment>
+      </>
     );
   }
 

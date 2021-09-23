@@ -15,7 +15,7 @@ const UplaodImageTab = () => {
               object({
                 url: string().required(),
               })
-            ),
+            ).min(1, 'Minimum of 1 SVG file'),
           })}
           onSubmit={(values) => {
             console.log('values', values);
