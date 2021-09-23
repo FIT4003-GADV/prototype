@@ -1,7 +1,5 @@
 import { Box, Typography } from "@material-ui/core"
 
-
-
 const IntroSection = () => {
     return(
       <Box marginTop={10}>
@@ -28,7 +26,6 @@ const IntroSection = () => {
           don&apos;t simply skip over it entirely.
         </Typography>
       </Box>
-
     )
 }
 

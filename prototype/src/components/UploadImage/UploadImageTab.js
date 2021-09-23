@@ -5,22 +5,28 @@ import { array, object, string } from 'yup';
 import  DragNDrop from './DragNDrop';
 
 const UplaodImageTab = () => {
+  const initialData = { files: [] }
+  
+  const validationSchema = object({
+    files: array(
+      object({
+        url: string().required(),
+      })
+    ).min(1, 'Minimum of 1 SVG file'),
+  })
+
+  const submitForm = (values) => {
+    console.log('values', values);
+    return new Promise((res) => setTimeout(res, 2000));
+  }
+
   return (
     <Card>
       <CardContent>
         <Formik
-          initialValues={{ files: [] }}
-          validationSchema={object({
-            files: array(
-              object({
-                url: string().required(),
-              })
-            ).min(1, 'Minimum of 1 SVG file'),
-          })}
-          onSubmit={(values) => {
-            console.log('values', values);
-            return new Promise((res) => setTimeout(res, 2000));
-          }}
+          initialValues={initialData}
+          validationSchema={validationSchema}
+          onSubmit={submitForm}
         >
           {({ values, errors, isValid, isSubmitting }) => (
             <Form>

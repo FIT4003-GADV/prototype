@@ -12,35 +12,10 @@ import React, { useState } from 'react';
 import UploadImageTab from './components/UploadImage/UploadImageTab';
 import InsertCodeTab from './components/InsertCode/InsertCodeTab';
 import IntroSection from './components/IntroSection';
-
-const TabPanel = ({ children, value, index, ...other }) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-const a11yProps = (index) => {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+import TabPanel from './components/TapPanel';
 
 const App = () =>{
   const [tab, setTab] = useState(0);
-
   return (
     <>
       <AppBar position="fixed">
@@ -58,8 +33,8 @@ const App = () =>{
         <Box marginTop={5} sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
-              <Tab label="Upload SVG image" {...a11yProps(0)} />
-              <Tab label="Insert XML code" {...a11yProps(1)} />
+              <Tab label="Upload SVG image"  />
+              <Tab label="Insert XML code" />
             </Tabs>
           </Box>
           <TabPanel value={tab} index={0}>

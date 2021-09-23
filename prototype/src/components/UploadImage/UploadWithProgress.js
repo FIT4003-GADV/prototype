@@ -41,7 +41,7 @@ const UploadWithProgress = ({file,onDelete,onUpload,}) => {
       onUpload(file, url);
     }
     upload();
-  }, []);
+  }, [file, onUpload]);
 
   return (
     <Grid item>
