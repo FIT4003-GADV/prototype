@@ -11,7 +11,8 @@ import {
   Tab,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import Home from './components/UploadImage/UploadImageTab';
+import UploadImageTab from './components/UploadImage/UploadImageTab';
+import InsertCodeTab from './components/InsertCode/InsertCodeTab';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -69,10 +70,10 @@ const App = () =>{
           </Tabs>
         </Box>
         <TabPanel value={tab} index={0}>
-          <Home />
+          <UploadImageTab />
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          Item Two
+          <InsertCodeTab />
         </TabPanel>
       </Box>
     </Container>

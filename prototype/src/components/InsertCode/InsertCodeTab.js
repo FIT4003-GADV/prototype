@@ -1,21 +1,17 @@
 import { Button, Card, CardContent, Grid } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { array, object, string } from 'yup';
-import  DragNDrop from './DragNDrop';
+import { object, string } from 'yup';
+import CodeInput from './CodeInput';
 
-const UplaodImageTab = () => {
+const InsertCodeTab = () => {
   return (
     <Card>
       <CardContent>
         <Formik
-          initialValues={{ files: [] }}
+          initialValues={{ xmlcode: "" }}
           validationSchema={object({
-            files: array(
-              object({
-                url: string().required(),
-              })
-            ),
+            xmlcode: string().required(),
           })}
           onSubmit={(values) => {
             console.log('values', values);
@@ -25,7 +21,7 @@ const UplaodImageTab = () => {
           {({ values, errors, isValid, isSubmitting }) => (
             <Form>
               <Grid container spacing={2} direction="column">
-                <DragNDrop name="files" />
+                <CodeInput name="xmlcode"/>
                 <Grid item>
                   <Button
                     variant="contained"
@@ -46,4 +42,4 @@ const UplaodImageTab = () => {
   );
 }
 
-export default UplaodImageTab
+export default InsertCodeTab
