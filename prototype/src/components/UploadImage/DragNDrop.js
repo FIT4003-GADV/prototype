@@ -7,9 +7,7 @@ import UploadError from './UploadError'
 
 
 let currentId = 0;
-
-function getNewId() {
-  // we could use a fancier solution instead of a sequential ID :)
+const getNewId = () => {
   return ++currentId;
 }
 
@@ -32,6 +30,8 @@ const DragNDrop = ({ name='files' }) => {
     const [isHovering, setIsHovering] = useState(false);
     const [files, setFiles] = useState([]);
 
+    console.log(files)
+
     const onDrop = useCallback((accFiles, rejFiles) => {
       const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
       const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
@@ -40,7 +40,6 @@ const DragNDrop = ({ name='files' }) => {
   
     useEffect(() => {
       helpers.setValue(files);
-      // helpers.setTouched(true);
     }, [files]);
   
     const onUpload = (file, url) => {
@@ -70,7 +69,7 @@ const DragNDrop = ({ name='files' }) => {
           <div
             onMouseOver={() => setIsHovering(true)}  
             onMouseLeave={() => setIsHovering(false)} 
-            style={{backgroundColor: isHovering && '#E8E8E8'}}
+            style={{backgroundColor: isHovering && '#E8E8E8', cursor: isHovering && 'pointer'}}
             {...getRootProps({ className: classes.dropzone })}
           >
             <input {...getInputProps()} />

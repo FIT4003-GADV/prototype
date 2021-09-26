@@ -10,7 +10,7 @@ const UplaodImageTab = () => {
   const validationSchema = object({
     files: array(
       object({
-        url: string().required(),
+        url: string(),
       })
     ).min(1, 'Minimum of 1 SVG file'),
   })
