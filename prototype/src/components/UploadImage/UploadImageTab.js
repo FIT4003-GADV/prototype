@@ -6,10 +6,11 @@ import {styled} from "@mui/material/styles";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
-const UploadImageTab = () => {
+const UploadImageTab = (props) => {
   const [files, setFiles] = useState({files: [], errors: []})
+  const history = useHistory();
 
   //If a space or enter, call function
   const keyboardClick = func => e => e.keyCode === 13 || e.keyCode === 32 ? func : false
@@ -39,23 +40,28 @@ const UploadImageTab = () => {
   }
 
   const uploadFiles = () => {
-    for (const file of files.files) {
-      axios.request({
-        method: "post",
-        url: "https://httpbin.org/post",
-        data: file,
-        onUploadProgress: (p) => {
-          console.log(p);
-          //this.setState({
-          //fileprogress: p.loaded / p.total
-          //})
-        }
-      }).then(data => {
-        //this.setState({
-        //fileprogress: 1.0,
-        //})
-      })
-    }
+    console.log(history)
+    history.push({
+      pathname: '/process',
+      state: {files: files.files}
+    })
+    // for (const file of files.files) {
+    //   axios.request({
+    //     method: "post",
+    //     url: "https://httpbin.org/post",
+    //     data: file,
+    //     onUploadProgress: (p) => {
+    //       console.log(p);
+    //       //this.setState({
+    //       //fileprogress: p.loaded / p.total
+    //       //})
+    //     }
+    //   }).then(data => {
+    //     //this.setState({
+    //     //fileprogress: 1.0,
+    //     //})
+    //   })
+    // }
   }
 
   const FileLabel = styled('label')`` // these `` are needed
