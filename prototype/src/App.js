@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import UploadImageTab from './components/UploadImage/UploadImageTab';
-import InsertCodeTab from './components/InsertCode/InsertCodeTab';
+// import InsertCodeTab from './components/InsertCode/InsertCodeTab';
 import IntroSection from './components/IntroSection';
 import TabPanel from './components/TabPanel.js';
 
@@ -41,7 +41,7 @@ const App = () =>{
             <UploadImageTab />
           </TabPanel>
           <TabPanel value={tab} index={1}>
-            <InsertCodeTab />
+            {/*<InsertCodeTab />*/}
           </TabPanel>
         </Box>
       </Container>
