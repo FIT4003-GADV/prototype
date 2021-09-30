@@ -45,23 +45,7 @@ const UploadImageTab = (props) => {
       pathname: '/process',
       state: {files: files.files}
     })
-    // for (const file of files.files) {
-    //   axios.request({
-    //     method: "post",
-    //     url: "https://httpbin.org/post",
-    //     data: file,
-    //     onUploadProgress: (p) => {
-    //       console.log(p);
-    //       //this.setState({
-    //       //fileprogress: p.loaded / p.total
-    //       //})
-    //     }
-    //   }).then(data => {
-    //     //this.setState({
-    //     //fileprogress: 1.0,
-    //     //})
-    //   })
-    // }
+
   }
 
   const FileLabel = styled('label')`` // these `` are needed
