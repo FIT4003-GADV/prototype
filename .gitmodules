@@ -1,0 +1,3 @@
+[submodule "beagle-annotator"]
+	path = beagle-annotator
+	url = git@github.com:FIT4003-GADV/beagle-annotator.git
