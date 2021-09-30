@@ -1,4 +1,4 @@
-import {Box, Container,} from '@mui/material';
+import {Box, Card, CardContent, Container,} from '@mui/material';
 import React, {useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import List from "@mui/material/List";
@@ -18,11 +18,16 @@ const ProcessPage = () => {
   const [progress, setProgress] = useState(files.map(() => 0))
 
   if (files.length === 0) {
-    return (<Container>
-      <Box marginTop={5} sx={{width: '100%'}}>
-        ERROR NO FILES
-      </Box>
-    </Container>)
+    return (
+        <Container>
+          <Card>
+            <CardContent>
+              <Box marginTop={5} sx={{width: '100%'}}>
+                ERROR NO FILES
+              </Box>
+            </CardContent>
+          </Card>
+        </Container>)
   }
 
   if (!isSent) {
@@ -47,18 +52,20 @@ const ProcessPage = () => {
 
   return (
       <Container>
-        <Box marginTop={5} sx={{width: '100%'}}>
-          <List>
-            {files.map((file, i) => (
-                <ListItem key={i} sx={{ width: '100%' }}>
-                  <Stack sx={{ width: '100%' }}>
-                    {i} - {file.name} - {progress[i]}%
-                    <LinearProgress variant="determinate" value={progress[i]}/>
-                  </Stack>
-                </ListItem>
-            ))}
-          </List>
-        </Box>
+        <Card>
+          <CardContent>
+            <List>
+              {files.map((file, i) => (
+                  <ListItem key={i} sx={{width: '100%'}}>
+                    <Stack sx={{width: '100%'}}>
+                      {i} - {file.name} - {progress[i]}%
+                      <LinearProgress variant={progress[i] === 100 ? "indeterminate" : "determinate"} value={progress[i]}/>
+                    </Stack>
+                  </ListItem>
+              ))}
+            </List>
+          </CardContent>
+        </Card>
       </Container>
   );
 }
