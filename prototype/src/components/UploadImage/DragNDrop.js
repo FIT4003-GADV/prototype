@@ -30,12 +30,25 @@ const DragNDrop = ({ name='files' }) => {
     const [isHovering, setIsHovering] = useState(false);
     const [files, setFiles] = useState([]);
 
-    console.log(files)
-
     const onDrop = useCallback((accFiles, rejFiles) => {
-      const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
-      const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
-      setFiles((curr) => [...curr, ...mappedAcc, ...mappedRej]);
+      accFiles.forEach((file) => 
+      {
+        let fileInfo = {imageInfo: file, errors: [], id: getNewId()}
+        const reader1 = new FileReader()
+        reader1.onload = (e) => {
+          fileInfo = { ...fileInfo, xmlCode: e.target.result}
+        };
+        reader1.readAsText(file);
+
+        const reader2 = new FileReader()
+        reader2.onload = (e) => {
+          setFiles((curr) => [...curr,{ ...fileInfo, dataUrl: e.target.result}])
+        };
+        reader2.readAsDataURL(file);
+      });
+
+      rejFiles.forEach((file) => (setFiles((curr) => [...curr, { ...file, imageInfo: file, id: getNewId() }])));
+
     }, []);
   
     useEffect(() => {
@@ -53,8 +66,9 @@ const DragNDrop = ({ name='files' }) => {
       );
     }
   
-    const onDelete = (file) => {
-      setFiles((curr) => curr.filter((fw) => fw.file !== file));
+    const onDelete = (fileId) => {
+      console.log(fileId)
+      setFiles((curr) => curr.filter((fw) => fw.id !== fileId));
     }
   
     const { getRootProps, getInputProps } = useDropzone({
@@ -82,14 +96,14 @@ const DragNDrop = ({ name='files' }) => {
             {
               fileWrapper.errors.length ? 
               <UploadError
-                file={fileWrapper.file}
+                file={fileWrapper}
                 errors={fileWrapper.errors}
                 onDelete={onDelete}
               /> : 
               <UploadWithProgress
                 onDelete={onDelete}
                 onUpload={onUpload}
-                file={fileWrapper.file}
+                file={fileWrapper}
               />
             }
           </Grid>
