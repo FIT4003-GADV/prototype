@@ -6,6 +6,7 @@ import {styled} from "@mui/material/styles";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from "axios";
 
 const UploadImageTab = () => {
   const [files, setFiles] = useState({files: [], errors: []})
@@ -38,11 +39,23 @@ const UploadImageTab = () => {
   }
 
   const uploadFiles = () => {
-    fetch("https://httpbin.org/post", {
-      method:"POST",
-      headers: {},
-      body:
-    })
+    for (const file of files.files) {
+      axios.request({
+        method: "post",
+        url: "https://httpbin.org/post",
+        data: file,
+        onUploadProgress: (p) => {
+          console.log(p);
+          //this.setState({
+          //fileprogress: p.loaded / p.total
+          //})
+        }
+      }).then(data => {
+        //this.setState({
+        //fileprogress: 1.0,
+        //})
+      })
+    }
   }
 
   const FileLabel = styled('label')`` // these `` are needed
@@ -100,30 +113,6 @@ const UploadImageTab = () => {
               Submit
             </Button>
           </Stack>
-          {/*<Formik*/}
-          {/*  initialValues={initialData}*/}
-          {/*  validationSchema={validationSchema}*/}
-          {/*  onSubmit={submitForm}*/}
-          {/*>*/}
-          {/*  {({ values, errors, isValid, isSubmitting }) => (*/}
-          {/*    <Form>*/}
-          {/*      <Grid container spacing={2} direction="column">*/}
-          {/*        <DragNDrop name="files" />*/}
-          {/*        <Grid item>*/}
-          {/*          <Button*/}
-          {/*            variant="contained"*/}
-          {/*            color="primary"*/}
-          {/*            disabled={!isValid || isSubmitting}*/}
-          {/*            type="submit"*/}
-          {/*          >*/}
-          {/*            Submit*/}
-          {/*          </Button>*/}
-          {/*        </Grid>*/}
-          {/*      </Grid>*/}
-          {/*      <pre>{values && JSON.stringify({ values, errors }, null, 4)}</pre>*/}
-          {/*    </Form>*/}
-          {/*  )}*/}
-          {/*</Formik>*/}
         </CardContent>
       </Card>
   );
