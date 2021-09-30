@@ -67,8 +67,7 @@ const DragNDrop = ({ name='files' }) => {
     }
   
     const onDelete = (fileId) => {
-      console.log(fileId)
-      setFiles((curr) => curr.filter((fw) => fw.id !== fileId));
+      setFiles((files) => files.filter((file) => file.id !== fileId));
     }
   
     const { getRootProps, getInputProps } = useDropzone({

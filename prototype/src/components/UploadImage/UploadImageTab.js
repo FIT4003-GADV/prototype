@@ -16,7 +16,9 @@ const UplaodImageTab = () => {
   })
 
   const submitForm = (values) => {
-    console.log('values', values);
+    const xmlCodeArray = []
+    values.files.forEach(file => xmlCodeArray.push(file.xmlCode))
+    console.log('xmlCodeArray', xmlCodeArray);
     return new Promise((res) => setTimeout(res, 2000));
   }
 

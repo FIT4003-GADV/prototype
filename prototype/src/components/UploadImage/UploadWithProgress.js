@@ -16,8 +16,6 @@ const UploadWithProgress = ({file,onDelete,onUpload}) => {
     }
   }, []);
 
-  console.log(file)
-
   return (
     <Grid item>
       <Paper variant="outlined">
