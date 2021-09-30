@@ -3,7 +3,7 @@ import {
     LinearProgress,
     Typography,
     withStyles
-  } from '@material-ui/core';
+  } from '@mui/material';
   import React from 'react';
   import FileHeader  from './FileHeader';
   

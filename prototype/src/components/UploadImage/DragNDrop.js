@@ -1,5 +1,5 @@
-import { Grid, makeStyles } from '@material-ui/core';
 import { useField } from 'formik';
+import { Grid, makeStyles } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UploadWithProgress from './UploadWithProgress';

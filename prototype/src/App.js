@@ -7,12 +7,12 @@ import {
   Typography,
   Tabs,
   Tab,
-} from '@material-ui/core';
+} from '@mui/material';
 import React, { useState } from 'react';
 import UploadImageTab from './components/UploadImage/UploadImageTab';
 import InsertCodeTab from './components/InsertCode/InsertCodeTab';
 import IntroSection from './components/IntroSection';
-import TabPanel from './components/TapPanel';
+import TabPanel from './components/TabPanel.js';
 
 const App = () =>{
   const [tab, setTab] = useState(0);

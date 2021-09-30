@@ -1,4 +1,4 @@
-import { Box, Typography } from "@material-ui/core"
+import { Box, Typography } from "@mui/material"
 
 const IntroSection = () => {
     return(
@@ -12,18 +12,7 @@ const IntroSection = () => {
           Album layout
         </Typography>
         <Typography variant="p" align="center" color="text.secondary" paragraph >
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
+          intro
         </Typography>
       </Box>
     )

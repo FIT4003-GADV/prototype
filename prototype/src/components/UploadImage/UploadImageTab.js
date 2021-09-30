@@ -1,8 +1,10 @@
-import { Button, Card, CardContent, Grid } from '@material-ui/core';
 import { Form, Formik } from 'formik';
+import {Card, CardContent, makeStyles} from '@mui/material';
 import React from 'react';
 import { array, object, string } from 'yup';
 import  DragNDrop from './DragNDrop';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const UplaodImageTab = () => {
   const initialData = { files: [] }
