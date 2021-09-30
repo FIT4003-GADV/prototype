@@ -6,7 +6,6 @@ import  DragNDrop from './DragNDrop';
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-const UplaodImageTab = () => {
   const initialData = { files: [] }
   
   const validationSchema = object({
@@ -54,4 +53,4 @@ const UplaodImageTab = () => {
   );
 }
 
-export default UplaodImageTab
+export default UploadImageTab
