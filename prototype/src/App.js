@@ -1,51 +1,34 @@
-import {
-  AppBar,
-  Box,
-  Container,
-  CssBaseline,
-  Toolbar,
-  Typography,
-  Tabs,
-  Tab,
-} from '@mui/material';
-import React, { useState } from 'react';
-import UploadImageTab from './components/UploadImage/UploadImageTab';
+import {AppBar, Container, CssBaseline, Toolbar, Typography,} from '@mui/material';
+import React from 'react';
 // import InsertCodeTab from './components/InsertCode/InsertCodeTab';
 import IntroSection from './components/IntroSection';
-import TabPanel from './components/TabPanel.js';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import UploadPage from "./components/UploadPage.js";
+import ProcessPage from "./components/ProcessPage.js";
 
-const App = () =>{
-  const [tab, setTab] = useState(0);
+const App = () => {
   return (
-    <>
-      <AppBar position="fixed">
-        <Toolbar variant="dense">
-          <Typography variant="h6">
-            Alt Text Generation from SVG
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <CssBaseline />
-      <Container maxWidth="lg">
-        <IntroSection />
-      </Container>
-      <Container>
-        <Box marginTop={5} sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
-              <Tab label="Upload SVG image"  />
-              <Tab label="Insert XML code" />
-            </Tabs>
-          </Box>
-          <TabPanel value={tab} index={0}>
-            <UploadImageTab />
-          </TabPanel>
-          <TabPanel value={tab} index={1}>
-            {/*<InsertCodeTab />*/}
-          </TabPanel>
-        </Box>
-      </Container>
-    </>
+      <Router>
+        <AppBar position="fixed">
+          <Toolbar variant="dense">
+            <Typography variant="h6">
+              Alt Text Generation from SVG
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <CssBaseline/>
+        <Container maxWidth="lg">
+          <IntroSection/>
+        </Container>
+        <Switch>
+          <Route path="/process">
+            <ProcessPage/>
+          </Route>
+          <Route path="/">
+            <UploadPage/>
+          </Route>
+        </Switch>
+      </Router>
   );
 }
 
