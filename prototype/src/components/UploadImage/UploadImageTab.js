@@ -13,7 +13,13 @@ const UploadImageTab = (props) => {
   const history = useHistory();
 
   //If a space or enter, call function
-  const keyboardClick = func => e => e.keyCode === 13 || e.keyCode === 32 ? func : false
+  const keyboardClick = func => {
+    return e => {
+      if (e.charCode === 13 || e.charCode === 32) {
+        func()
+      }
+    };
+  }
 
   const fileInput = React.createRef();
 
@@ -40,11 +46,14 @@ const UploadImageTab = (props) => {
   }
 
   const uploadFiles = () => {
-    console.log(history)
-    history.push({
-      pathname: '/process',
-      state: {files: files.files}
-    })
+    if (files.files.length === 0) {
+      //No files
+    } else {
+      history.push({
+        pathname: '/process',
+        state: {files: files.files}
+      })
+    }
 
   }
 
@@ -66,8 +75,8 @@ const UploadImageTab = (props) => {
               "&:focus": {
                 backgroundColor: "#E8E8E8"
               }
-            }} htmlFor="fileInput" tabIndex={0}
-                       onKeyPress={keyboardClick(() => document.getElementById("fileInput").click())}>
+            }} htmlFor="fileInput" tabIndex={0} role={"button"}
+                       onKeyPress={keyboardClick(() => document.getElementById("fileInput").click() )} >
               Drag 'n' drop SVG image here, or click to select image
               <input ref={fileInput} style={{display: "none"}} id="fileInput" type="file"
                      onChange={() => handleFileSelect(Array.from(fileInput.current.files))} multiple/>
@@ -86,7 +95,7 @@ const UploadImageTab = (props) => {
               {
                 files.files.map((file, i) => (
                     <ListItem secondaryAction={
-                      <IconButton edge="end" aria-label="delete"
+                      <IconButton edge="end" aria-label={`delete file ${file.name}`}
                                   onKeyPress={keyboardClick(deleteFile.bind(i))}
                                   onClick={() => deleteFile(i)}>
                         <DeleteIcon/>
