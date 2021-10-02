@@ -12,9 +12,9 @@ jobs:
       - name: Installing pip requirements
         run: pip install --target ./package -r requirements.txt
       - name: Zipping pip requirements
-        run: zip -r dep-pkg.zip ./package
+        run: zip -qr dep-pkg.zip ./package
       - name: Zipping source to create final deployment bundle
-        run: zip -g dep-pkg.zip .
+        run: zip -x ./package -g dep-pkg.zip *
       - name: Deploy zip archive to Lambda
         uses: appleboy/lambda-action@master
         with:
