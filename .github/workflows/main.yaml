@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy code to Lambda
-        uses: denzalman/lambda-python-action@v1.1.0
+        uses: denzalman/lambda-python-action@v1.0.8
         with:
           lambda_function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}
           lambda_region: ${{ secrets.AWS_REGION }}
