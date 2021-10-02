@@ -1,0 +1,20 @@
+name: GADV Prototype CI
+
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+  deploy:
+    name: Deploy to AWS Lambda backend
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy code to Lambda
+        uses: denzalman/lambda-python-action@v2.0.0
+        with:
+          lambda_function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}
+          lambda_region: ${{ secrets.AWS_REGION }}
+          requirements_txt: 'requirements.txt'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
