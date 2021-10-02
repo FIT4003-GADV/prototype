@@ -9,12 +9,10 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
-      - name: Installing pip requirements
-        run: pip install --target ./package -r requirements.txt
-      - name: Zipping pip requirements
-        run: zip -qr dep-pkg.zip ./package
-      - name: Zipping source to create final deployment bundle
-        run: zip -x ./package -g dep-pkg.zip *
+      - name: Installing pip requirements into current directory
+        run: pip install -r requirements.txt --target .
+      - name: Create final deployment bundle
+        run: zip -r dep-pkg.zip .
       - name: Deploy zip archive to Lambda
         uses: appleboy/lambda-action@master
         with:
