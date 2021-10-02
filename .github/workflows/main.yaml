@@ -9,12 +9,18 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy code to Lambda
-        uses: denzalman/lambda-python-action@v1.0.8
+      - name: Installing pip requirements
+        run: pip install --target ./package -r requirements.txt
+      - name: Zipping pip requirements
+        run: zip -r dep-pkg.zip ./package
+      - name: Zipping source to create final deployment bundle
+        run: zip -g dep-pkg.zip .
+      - name: Deploy zip archive to Lambda
+        uses: appleboy/lambda-action@master
         with:
-          lambda_function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}
-          lambda_region: ${{ secrets.AWS_REGION }}
-          requirements_txt: 'requirements.txt'
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}
+          handler: lambda_function.lambda_handler
+          zip_file: dep-pkg.zip
