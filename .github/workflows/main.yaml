@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Installing pip requirements into current directory
-        run: pip install --no-cache-dir --compile -r requirements.txt --target .
+        run: CFLAGS="-g0 -Wl,--strip-all -I/usr/include:/usr/local/include -L/usr/lib:/usr/local/lib" pip install --no-cache-dir --compile --global-option=build_ext -r requirements.txt --target .
       - name: Create final deployment bundle
         run: zip -qr dep-pkg.zip .
       - run: du -sh dep-pkg.zip
