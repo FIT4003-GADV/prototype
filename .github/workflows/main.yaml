@@ -12,7 +12,8 @@ jobs:
       - name: Installing pip requirements into current directory
         run: pip install -r requirements.txt --target .
       - name: Create final deployment bundle
-        run: zip -r dep-pkg.zip .
+        run: zip -qr dep-pkg.zip .
+      - run: du -sh dep-pkg.zip
       - name: Deploy zip archive to Lambda
         uses: appleboy/lambda-action@master
         with:
