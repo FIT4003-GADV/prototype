@@ -3,7 +3,7 @@ This file contains the logic to preprocess charts that are from plotly.
 """
 
 from svgpathtools import parse_path
-from .chart_sources import plotly as attributes
+from logic.preprocess.chart_sources import plotly as attributes
 from supported_chart_types import SupportedType
 from math import inf
 
@@ -193,11 +193,11 @@ def read_plotly_chart(soup, graph_type):
 
     if axes_labels and title_text:
         info = {
-            "graph_type": graph_type,
             "title": title_text,
-            "axes_labels": axes_labels,
-            "x_labels": x_labels,
-            "y_labels": y_labels,
+            "x_axis_title": axes_labels[0],
+            "y_axis_title": axes_labels[1],
+            "x_tick_labels": x_labels,
+            "y_tick_labels": y_labels,
             "data": data_points
         }
         return info  # valid chart

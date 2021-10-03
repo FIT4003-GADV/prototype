@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from stages.stage import Stage
 from supported_chart_types import SupportedType
-from .plotly import read_plotly_chart
+from logic.preprocess.plotly import read_plotly_chart
 
 
 class Preprocess(Stage):
@@ -14,12 +14,12 @@ class Preprocess(Stage):
         super().__init__()
         if not svg_string:
             raise ValueError('No SVG provided to Preprocess stage.')
-        self.svg_string = svg_string
         if not chart_type:
             raise ValueError('No chart type specified to Preprocess stage.')
+        self.svg_string = svg_string
         self.chart_type = chart_type
 
-    def do_stage(self, *args, **kwargs) -> BeautifulSoup:
+    def do_stage(self, *args, **kwargs) -> dict:
         """Pre-processes an input SVG vis and returns it once pre-processed."""
         logging.info('Preprocessing...')
         soup = BeautifulSoup(self.svg_string, 'html.parser')
