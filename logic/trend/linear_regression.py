@@ -24,8 +24,8 @@ def trend_generator(info):
     slope = model.coef_[0]
 
     if slope > 0:
-        return 1
+        return "increasing"
     elif slope < 0:
-        return 2
+        return "decreasing"
     else:
-        return 3
+        return "flat"

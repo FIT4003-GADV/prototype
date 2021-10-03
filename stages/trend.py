@@ -16,7 +16,6 @@ class TrendType(Enum):
     INCREASING = 1
     DECREASING = 2
     FLAT = 3
-    BAR = 4
 
 
 class Trend(Stage):
@@ -36,19 +35,9 @@ class Trend(Stage):
             # TODO: how to handle bar trend with enum?
             result = trend_bar(self.info)
             return {
-                "trend": TrendType.BAR,
                 "max": result[0],
                 "min": result[1]
             }
         else:
-            result = trend_generator(self.info)
-            if result == 1:
-                trend = TrendType.INCREASING
-            elif result == 2:
-                trend = TrendType.DECREASING
-            else:
-                trend = TrendType.FLAT
-            return {
-                "trend": trend
-            }
+            return trend_generator(self.info)
 

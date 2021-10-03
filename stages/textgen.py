@@ -11,7 +11,7 @@ from supported_chart_types import SupportedType
 
 
 class TextGen(Stage):
-    def __init__(self, info: dict, chart_type: SupportedType, trend: TrendType):
+    def __init__(self, info: dict, chart_type: SupportedType, trend: dict):
         super().__init__()
         if not info:
             raise ValueError('No data provided to TextGen stage.')
@@ -31,12 +31,12 @@ class TextGen(Stage):
         logging.info(self.trend)
         if self.chart_type == SupportedType.BAR:
             return [
-                f"A bar chart representing {self.info['title']} where {self.info['x_axis_title']} is plotted "
-                f"against {self.info['y_axis_title']}",
+                f"A {self.chart_type.value} graph representing {self.info['title']} where {self.info['x_axis_title']}"
+                f" is plotted against {self.info['y_axis_title']}.",
                 f"This chart features the categories: {', '.join(self.info['x_tick_labels'])}.",
                 f"The highest category is {self.trend['max'][0]} with {round(self.trend['max'][1], 1)} {self.info['y_axis_title']}",
                 f"The lowest category is {self.trend['min'][0]} with {round(self.trend['min'][1], 1)} {self.info['y_axis_title']}"]
         else:
-            # TODO
-            return [f"A {self.chart_type} representing {self.info['title']} where {self.info['x_axis_title']} is plotted "
-                    f"against {self.info['y_axis_title']}", "This chart features..."]
+            return [f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
+                    f" is plotted against {self.info['y_axis_title']}.",
+                    f"This {self.chart_type.value} shows an {self.trend} trend."]
