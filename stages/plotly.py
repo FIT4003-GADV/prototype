@@ -2,9 +2,10 @@
 This file contains the logic to preprocess charts that are from plotly.
 """
 
-from bs4 import BeautifulSoup
 from svgpathtools import parse_path
-from chart_sources import plotly as attributes
+from .chart_sources import plotly as attributes
+from supported_chart_types import SupportedType
+from math import inf
 
 
 def check_plotly_axes(soup):
@@ -18,6 +19,7 @@ def check_plotly_axes(soup):
             return axes_labels
 
     return False
+
 
 def check_plotly_title(soup):
     try:  # can't find the svg
@@ -33,6 +35,7 @@ def check_plotly_title(soup):
         return title.get_text()
 
     return False
+
 
 def get_paths(soup, graph_type, attributes):
     class_id = attributes[graph_type]
@@ -56,6 +59,7 @@ def get_paths(soup, graph_type, attributes):
                 coords.append(parse_path(path_string))
 
     return coords
+
 
 def get_axes_ticks(soup, attributes):
     x_axes_ticks_id = attributes['x_axis_ticks']
@@ -93,6 +97,7 @@ def get_axes_ticks(soup, attributes):
 
     return x_labels, x_coords, y_labels, y_coords
 
+
 def calculate_y_data_point(coord, labels, axes_coords):
     left_label = None
     right_label = None
@@ -112,6 +117,7 @@ def calculate_y_data_point(coord, labels, axes_coords):
     actual_value = left_label + (dist/interval * (right_label - left_label))
 
     return actual_value
+
 
 def convert_path_to_data(x_labels, x_coords, y_labels, y_coords, lines, graph_type, height):
     if graph_type == 'scatterplot':
@@ -168,3 +174,32 @@ def convert_path_to_data(x_labels, x_coords, y_labels, y_coords, lines, graph_ty
                         line_data_points.append((x_labels[i], 0))
 
     return line_data_points
+
+
+def read_plotly_chart(soup, graph_type):
+    if graph_type == SupportedType.LINE:
+        graph_type = 'line'
+    elif graph_type == SupportedType.SCATTER:
+        graph_type = 'scatterplot'
+    elif graph_type == SupportedType.BAR:
+        graph_type = 'bar'
+
+    axes_labels = check_plotly_axes(soup)
+    title_text = check_plotly_title(soup)
+    lines = get_paths(soup, graph_type, attributes)
+    x_labels, x_coords, y_labels, y_coords = get_axes_ticks(soup, attributes)
+    height = float(soup.find('svg')['height'])
+    data_points = convert_path_to_data(x_labels, x_coords, y_labels, y_coords, lines, graph_type, height)
+
+    if axes_labels and title_text:
+        info = {
+            "graph_type": graph_type,
+            "title": title_text,
+            "axes_labels": axes_labels,
+            "x_labels": x_labels,
+            "y_labels": y_labels,
+            "data": data_points
+        }
+        return info  # valid chart
+
+    return False  # invalid chart
