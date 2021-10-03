@@ -9,5 +9,5 @@ class SupportedType(Enum):
     LINE = 1
     # All bar charts.
     BAR = 2
-    # Pie charts.
-    PIE = 3
+    # Scatterplot charts.
+    SCATTER = 3

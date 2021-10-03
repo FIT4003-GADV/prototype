@@ -18,3 +18,6 @@ class Preprocess(Stage):
         """Pre-processes an input SVG vis and returns it once pre-processed."""
         logging.info('Preprocessing...')
         return BeautifulSoup(self.svg_string, 'html.parser')
+    
+    def read_svg_chart(soup):
+        
