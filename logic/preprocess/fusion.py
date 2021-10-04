@@ -195,7 +195,13 @@ def check_fusion_legend(soup):
     return False
 
 
-def read_svg_chart(soup, graph_type):
+def read_fusion_chart(soup, graph_type):
+
+    x_axis_values = check_fusion_x_axis_values(soup)
+    y_axis_values = check_fusion_y_axis_values(soup)
+    axes_labels = check_fusion_axes(soup)
+    title_text = check_fusion_title(soup)
+
     if graph_type == SupportedType.LINE:
         graph_type = 'line'
         data_points = get_data_line_chart(soup)
@@ -204,12 +210,10 @@ def read_svg_chart(soup, graph_type):
         data_points = get_data_scatter_chart(soup)
     elif graph_type == SupportedType.BAR:
         graph_type = 'bar'
-        data_points = get_data_bar_chart(soup)
-
-    x_axis_values = check_fusion_x_axis_values(soup)
-    y_axis_values = check_fusion_y_axis_values(soup)
-    axes_labels = check_fusion_axes(soup)
-    title_text = check_fusion_title(soup)
+        bar_chart_data_points = get_data_bar_chart(soup)
+        data_points = []
+        for i in range(len(bar_chart_data_points)):
+            data_points.append((x_axis_values[i], bar_chart_data_points[i]))
 
     if axes_labels and title_text and x_axis_values and y_axis_values:
         info = {
