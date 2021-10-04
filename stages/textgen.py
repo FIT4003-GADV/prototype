@@ -28,10 +28,17 @@ class TextGen(Stage):
         logging.info('Text generating...')
         result = ""
         if self.chart_type == SupportedType.BAR:
+            if isinstance(self.trend['min'][1], (int, float)):
+                max_value = round(self.trend['max'][1], 2)
+                min_value = round(self.trend['min'][1], 2)
+            else:
+                max_value = self.trend['max'][1]
+                min_value = self.trend['min'][1]
+
             result += f"A {self.chart_type.value} graph representing {self.info['title']} where {self.info['x_axis_title']} is plotted against {self.info['y_axis_title']}."
             result += f"This chart features the categories: {', '.join(self.info['x_tick_labels'])}."
-            result += f"The highest category is {self.trend['max'][0]} with {self.trend['max'][1]} {self.info['y_axis_title']}"
-            result += f"The lowest category is {self.trend['min'][0]} with {self.trend['min'][1]} {self.info['y_axis_title']}"
+            result += f"The highest category is {self.trend['max'][0]} with {max_value} {self.info['y_axis_title']}"
+            result += f"The lowest category is {self.trend['min'][0]} with {min_value} {self.info['y_axis_title']}"
         else:
             result += f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
             result += f" is plotted against {self.info['y_axis_title']}.",
