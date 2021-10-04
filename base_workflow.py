@@ -18,7 +18,6 @@ class BaseWorkflow(object):
 
     def execute(self) -> List[str]:
         chart_type: SupportedType = Predict(BeautifulSoup(self.svg_string, 'html.parser')).do_stage()
-        # chart_type: SupportedType = SupportedType.SCATTER
         info: dict = Preprocess(self.svg_string, chart_type).do_stage()
         trend_type: dict = Trend(info, chart_type).do_stage()
 

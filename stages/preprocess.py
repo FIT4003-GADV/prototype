@@ -3,6 +3,7 @@ Consists of the "Preprocess"ing stage to run any pre-processing needed on an inp
 """
 from absl import logging
 from bs4 import BeautifulSoup
+import re
 
 from stages.stage import Stage
 from supported_chart_types import SupportedType
@@ -31,9 +32,15 @@ class Preprocess(Stage):
         Checks the source of the chart. 
         Supported types: plotly, fusion
         """
-        # to implement
-        logging.info('This is a plotly chart.')
-        #result = read_plotly_chart(soup, self.chart_type)
-        result = read_fusion_chart(soup, self.chart_type)
-        logging.info(result)
-        return result
+        fusion_pat = re.compile("(.*-dataset-axis-name)")
+        axes = soup.find_all('g', class_=fusion_pat)
+        if len(axes) == 0:
+            axes = soup.find_all('g', class_='g-xtitle')
+            if len(axes) > 0:
+                logging.info('This is a plotly chart.')
+                return read_plotly_chart(soup, self.chart_type)
+        elif len(axes) > 0:
+            logging.info('This is a fusion chart.')
+            return read_fusion_chart(soup, self.chart_type)
+        raise Exception("Chart source not supported")
+

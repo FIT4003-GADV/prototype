@@ -26,16 +26,13 @@ class TextGen(Stage):
     def do_stage(self, *args, **kwargs) -> List[str]:
         """Returns an alt-text description of the SVG vis."""
         logging.info('Text generating...')
-        logging.info(self.info)
-        logging.info(self.chart_type)
-        logging.info(self.trend)
         if self.chart_type == SupportedType.BAR:
             return [
                 f"A {self.chart_type.value} graph representing {self.info['title']} where {self.info['x_axis_title']}"
                 f" is plotted against {self.info['y_axis_title']}.",
                 f"This chart features the categories: {', '.join(self.info['x_tick_labels'])}.",
-                f"The highest category is {self.trend['max'][0]} with {round(self.trend['max'][1], 1)} {self.info['y_axis_title']}",
-                f"The lowest category is {self.trend['min'][0]} with {round(self.trend['min'][1], 1)} {self.info['y_axis_title']}"]
+                f"The highest category is {self.trend['max'][0]} with {self.trend['max'][1]} {self.info['y_axis_title']}",
+                f"The lowest category is {self.trend['min'][0]} with {self.trend['min'][1]} {self.info['y_axis_title']}"]
         else:
             return [f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
                     f" is plotted against {self.info['y_axis_title']}.",
