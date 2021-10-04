@@ -26,14 +26,14 @@ class TextGen(Stage):
     def do_stage(self, *args, **kwargs) -> List[str]:
         """Returns an alt-text description of the SVG vis."""
         logging.info('Text generating...')
+        result = ""
         if self.chart_type == SupportedType.BAR:
-            return [
-                f"A {self.chart_type.value} graph representing {self.info['title']} where {self.info['x_axis_title']}"
-                f" is plotted against {self.info['y_axis_title']}.",
-                f"This chart features the categories: {', '.join(self.info['x_tick_labels'])}.",
-                f"The highest category is {self.trend['max'][0]} with {self.trend['max'][1]} {self.info['y_axis_title']}",
-                f"The lowest category is {self.trend['min'][0]} with {self.trend['min'][1]} {self.info['y_axis_title']}"]
+            result += f"A {self.chart_type.value} graph representing {self.info['title']} where {self.info['x_axis_title']} is plotted against {self.info['y_axis_title']}."
+            result += f"This chart features the categories: {', '.join(self.info['x_tick_labels'])}."
+            result += f"The highest category is {self.trend['max'][0]} with {self.trend['max'][1]} {self.info['y_axis_title']}"
+            result += f"The lowest category is {self.trend['min'][0]} with {self.trend['min'][1]} {self.info['y_axis_title']}"
         else:
-            return [f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
-                    f" is plotted against {self.info['y_axis_title']}.",
-                    f"This {self.chart_type.value} shows an {self.trend} trend."]
+            result += f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
+            result += f" is plotted against {self.info['y_axis_title']}.",
+            result += f"This {self.chart_type.value} shows an {self.trend} trend."
+        return result
