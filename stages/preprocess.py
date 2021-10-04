@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from stages.stage import Stage
 from supported_chart_types import SupportedType
 from logic.preprocess.plotly import read_plotly_chart
+from logic.preprocess.fusion import read_fusion_chart
 
 
 class Preprocess(Stage):
@@ -32,9 +33,7 @@ class Preprocess(Stage):
         """
         # to implement
         logging.info('This is a plotly chart.')
-        result = read_plotly_chart(soup, self.chart_type)
-        print(result)
+        #result = read_plotly_chart(soup, self.chart_type)
+        result = read_fusion_chart(soup, self.chart_type)
+        logging.info(result)
         return result
-
-
-
