@@ -16,7 +16,7 @@ def check_fusion_x_axis_values(soup):
         except Exception as e:
             return False
 
-        return ', '.join(x_axis_values)  # return a string for consistency
+        return x_axis_values
     return False
 
 
@@ -33,7 +33,7 @@ def check_fusion_y_axis_values(soup):
         except Exception as e:
             return False
         y_axis_values = y_axis_values[2:]
-        return ', '.join(y_axis_values)  # return a string for consistency
+        return y_axis_values
     return False
 
 
