@@ -41,6 +41,6 @@ class TextGen(Stage):
             result += f"The lowest category is {self.trend['min'][0]} with {min_value} {self.info['y_axis_title']}"
         else:
             result += f"A {self.chart_type.value} representing {self.info['title']} where {self.info['x_axis_title']}"
-            result += f" is plotted against {self.info['y_axis_title']}.",
+            result += f" is plotted against {self.info['y_axis_title']}."
             result += f"This {self.chart_type.value} shows an {self.trend} trend."
         return result
