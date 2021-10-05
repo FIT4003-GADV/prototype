@@ -13,7 +13,7 @@ def readSVGFolder():
 
         with open(folder_path + "/result.txt", "w") as w:
             for i in range(len(folders)):
-                f = open(f'{folder_path}/{folders[i]}', 'r')
+                f = open(f'{folder_path}/{folders[i]}/svg.txt', 'r')
                 svg_string = f.read()
                 try:
                     bw = BaseWorkflow(svg_string)
