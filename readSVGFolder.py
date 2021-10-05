@@ -1,3 +1,6 @@
+"""
+Running the "BaseWorkflow" for each SVG inside a folder, folder path is requried when running this function 
+"""
 import os
 import sys
 from base_workflow import BaseWorkflow
@@ -8,7 +11,7 @@ def readSVGFolder():
         folder_path = sys.argv[1]
         folders = os.listdir(folder_path)
 
-        with open(folder_path + "/info.txt", "w") as w:
+        with open(folder_path + "/result.txt", "w") as w:
             for i in range(len(folders)):
                 f = open(f'{folder_path}/{folders[i]}', 'r')
                 svg_string = f.read()
