@@ -27,5 +27,3 @@ def readSVGFolder():
 
 if __name__ == '__main__':
     readSVGFolder()
-
-'c:/Users/DELL/OneDrive/Desktop/Monash/FIT4003/prototype/example_data/svgs'
