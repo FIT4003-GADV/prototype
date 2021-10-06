@@ -12,7 +12,7 @@ jobs:
       - name: Installing pip production requirements into current directory & trying to minimize size
         run: pip install --no-cache-dir --compile -r requirements-prod.txt --target .
       - name: Create final deployment bundle
-        run: zip -9 -qr dep-pkg.zip .
+        run: zip -qr dep-pkg.zip .
       - name: Bundle size...
         run: du -sh dep-pkg.zip
       - name: Configure AWS Credentials
