@@ -10,13 +10,12 @@ logging.set_stderrthreshold('debug')
 
 
 def lambda_handler(event, context):
-    bw = BaseWorkflow()
     logging.info(f'Received input event: {event}')
     result = handle(event, context)
     return result
 
 
 def handle(event, context):
-    # bw = BaseWorkflow('')
+    bw = BaseWorkflow('')
     print(type(event), type(context))
     return 2

@@ -18,7 +18,10 @@ from stages.stage import Stage
 from supported_chart_types import SupportedType
 
 # Append the Beagle repo into sys.path to resolve internal imports.
-sys.path.append('../beagle-annotator/svg_classifier')
+if 'LAMBDA_TASK_ROOT' in os.environ:
+    sys.path.append(f"{os.environ['LAMBDA_TASK_ROOT']}/beagle-annotator/svg_classifier")
+else:
+    sys.path.append('../beagle-annotator/svg_classifier')
 
 d3_feature_extractor = import_module('beagle-annotator.svg_classifier.d3_feature_extractor')
 
