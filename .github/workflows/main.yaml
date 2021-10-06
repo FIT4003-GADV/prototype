@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Installing pip production requirements into current directory & trying to minimize size
-        run: CLFAGS='-g0 -Wl -I/usr/include:/usr/local/include -L/usr/lib:/usr/local/lib' pip install --global-option=build_ext -r requirements-prod.txt --target .
+        run: pip install -no-cache-dir --compile -r requirements-prod.txt --target .
       - name: Create final deployment bundle
         run: zip -qr dep-pkg.zip .
       - name: Bundle size...
