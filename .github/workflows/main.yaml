@@ -9,6 +9,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - name: Installing pip production requirements into current directory & trying to minimize size
         run: pip install --no-cache-dir --compile -r requirements-prod.txt --target .
       - name: Create final deployment bundle

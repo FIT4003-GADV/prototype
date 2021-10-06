@@ -3,15 +3,15 @@ Entry-point to the AWS Lambda handler.
 """
 from absl import logging
 
-# from base_workflow import BaseWorkflow
+from base_workflow import BaseWorkflow
 
 logging.set_verbosity('debug')
 logging.set_stderrthreshold('debug')
 
 
 def lambda_handler(event, context):
-    logging.info(event)
-    logging.info(context)
+    bw = BaseWorkflow()
+    logging.info(f'Received input event: {event}')
     result = handle(event, context)
     return result
 
