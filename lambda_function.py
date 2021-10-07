@@ -22,8 +22,8 @@ def lambda_handler(event, context):
 
     result = handle(decoded_event_body)
     return {
-        'status': 200,
-        'result': json.dumps(result)
+        'statusCode': 200,
+        'body': json.dumps(result)
     }
 
 
