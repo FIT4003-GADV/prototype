@@ -3,7 +3,7 @@ This file contains the logic to preprocess charts that are from plotly.
 """
 
 from svgpathtools import parse_path
-from logic.preprocess.chart_sources import plotly as attributes
+from stages.logic.preprocess.chart_sources import plotly as attributes
 from supported_chart_types import SupportedType
 from math import inf
 
@@ -49,9 +49,12 @@ def get_paths(soup, graph_type, attributes):
             # get transform
             nested_paths = paths[i].find_all('path')
             for j in range(len(nested_paths)):
-                path_string = nested_paths[j]['transform']
-                x, y = path_string[10:].split(',')
-                coords.append((float(x),float(y[:-1])))
+                try:
+                    path_string = nested_paths[j]['transform']
+                    x, y = path_string[10:].split(',')
+                    coords.append((float(x),float(y[:-1])))
+                except:
+                    continue
         elif graph_type == 'bar':
             nested_paths = paths[i].find_all('path')
             for j in range(len(nested_paths)):

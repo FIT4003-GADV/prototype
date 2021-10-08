@@ -4,12 +4,11 @@ Consists of the "Trend" stage to find trends in an input SVG.
 from enum import Enum
 
 from absl import logging
-from bs4 import BeautifulSoup
 
 from stages.stage import Stage
 from supported_chart_types import SupportedType
-from logic.trend.bargraph_trend import trend_bar
-from logic.trend.linear_regression import trend_generator
+from stages.logic.trend.bargraph_trend import trend_bar
+from stages.logic.trend.linear_regression import trend_generator
 
 
 class TrendType(Enum):

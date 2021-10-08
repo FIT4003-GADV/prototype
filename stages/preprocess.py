@@ -7,8 +7,8 @@ import re
 
 from stages.stage import Stage
 from supported_chart_types import SupportedType
-from logic.preprocess.plotly import read_plotly_chart
-from logic.preprocess.fusion import read_fusion_chart
+from stages.logic.preprocess.plotly import read_plotly_chart
+from stages.logic.preprocess.fusion import read_fusion_chart
 
 
 class Preprocess(Stage):
