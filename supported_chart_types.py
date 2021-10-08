@@ -6,8 +6,8 @@ from enum import Enum
 
 class SupportedType(Enum):
     # All line charts.
-    LINE = 1
+    LINE = "line"
     # All bar charts.
-    BAR = 2
-    # Pie charts.
-    PIE = 3
+    BAR = "bar"
+    # Scatterplot charts.
+    SCATTER = "scatterplot"

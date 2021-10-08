@@ -49,8 +49,14 @@ class Predict(Stage):
         prediction = symbol_dict[self.clf.predict(feature_array.reshape(1, -1))[0]]
         logging.info(prediction)
 
-        # Return a canned answer for now.
-        return SupportedType.LINE
+        if prediction == 'bar':
+            return SupportedType.BAR
+        elif prediction == 'line':
+            return SupportedType.LINE
+        elif prediction == 'scatter':
+            return SupportedType.SCATTER
+        else:
+            raise Exception('Chart type is unsupported')   # unsupported type
 
     @staticmethod
     def load_object(file_path: str) -> Any:

@@ -2,7 +2,6 @@
 The Stage orchestrator.
 """
 from typing import List
-
 from bs4 import BeautifulSoup
 
 from stages import Predict
@@ -18,10 +17,10 @@ class BaseWorkflow(object):
         self.svg_string = svg_string
 
     def execute(self) -> List[str]:
-        svg: BeautifulSoup = Preprocess(self.svg_string).do_stage()
-        chart_type: SupportedType = Predict(svg).do_stage()
-        trend_type: TrendType = Trend(svg, chart_type).do_stage()
+        chart_type: SupportedType = Predict(BeautifulSoup(self.svg_string, 'html.parser')).do_stage()
+        info: dict = Preprocess(self.svg_string, chart_type).do_stage()
+        trend_type: dict = Trend(info, chart_type).do_stage()
 
-        alt_text: List[str] = TextGen(svg, chart_type, trend_type).do_stage()
+        alt_text: List[str] = TextGen(info, chart_type, trend_type).do_stage()
 
         return alt_text

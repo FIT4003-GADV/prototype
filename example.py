@@ -5,14 +5,17 @@ from absl import app
 from absl import logging
 from absl import flags
 
+
 from base_workflow import BaseWorkflow
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('path_to_svg', './example_data/svg.txt', 'Path to a text-based SVG file.')
+flags.DEFINE_string('path_to_svg', './example_data/svg.txt',
+                    'Path to a text-based SVG file.')
 
 
 def main(argv):
+    print(argv)
     del argv  # Unused.
 
     logging.info('-----Running example-----')
